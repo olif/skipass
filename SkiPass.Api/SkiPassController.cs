@@ -1,59 +1,68 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SkiPass.Api
 {
+    public record SkiPassBookingDTO(
+        [Required(AllowEmptyStrings = false)] string FirstName,
+        [Required(AllowEmptyStrings = false)] string LastName,
+        [Required] DateTime DateOfBirth,
+        [Required] DateTime From,
+        [Required] DateTime To) : IValidatableObject
+    {
+
+        private readonly DateTime seasonStart = new(2021, 05, 01);
+        private readonly DateTime seasonEnd = new(2021, 05, 01);
+
+        public string GetFullName() {
+            return $"{FirstName} {LastName}";
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (From < seasonStart)
+            {
+                yield return new ValidationResult("from is specified before season start", new[] {nameof(From)});
+            }
+            if (To > seasonEnd)
+            {
+                yield return new ValidationResult("to is specified after season ends", new[] {nameof(To)});
+            }
+        }
+    }
+
     [Route("api/[controller]")]
     [ApiController]
     public class SkiPassController : ControllerBase
     {
-        [HttpGet]
-        public SkiPass OrderSkiPass(string firstName, string lastName, DateTime dateOfBirth, DateTime from, DateTime to)
+        private readonly SkiPassRepository skiPassRepo;
+        private readonly SkiPassPriceCalculator skiPassPriceCalculator;
+
+        public SkiPassController(SkiPassRepository skiPassRepository, SkiPassPriceCalculator skiPassPriceCalculator)
         {
-            // Check all input is valid
-            ArgumentNullException.ThrowIfNull(firstName);
-            ArgumentNullException.ThrowIfNull(lastName);
+            this.skiPassRepo = skiPassRepository;
+            this.skiPassPriceCalculator = skiPassPriceCalculator;
+        }
 
-            // Check availability (after season start, to season end)
-            if (from < new DateTime(2021, 11, 1))
-                throw new ArgumentOutOfRangeException("from");
-            if (to > new DateTime(2022, 05, 01))
-                throw new ArgumentOutOfRangeException("to");
-
-            // Check age and calculate discount
-            var ageDiscount = 0d;
-            var age = Math.Floor((DateTime.Now - dateOfBirth).TotalDays / 365);
-
-            if (age < 5)
-                ageDiscount = 1;
-            if (age < 15)
-                ageDiscount = 0.3;
-            if (age > 65)
-                ageDiscount = 0.3;
-
-            // Calculate price
-            var days = Math.Floor((to - from).TotalDays);
-            var price = 0d;
-            price += Math.Round(Math.Min(days, 20) * 200 * (1d - ageDiscount));
-            price += Math.Round(Math.Clamp(days - 20, 0, 10) * 200 * (1d - ageDiscount) * 0.5);
-
-            // Add early bird discount for season price
-            if (days > 30 && DateTime.Now < new DateTime(DateTime.Now.Year, 11, 1))
-                price *= 0.85;
-            
+        [HttpPost]
+        public IActionResult OrderSkiPass([FromBody] SkiPassBookingDTO skiPassBooking)
+        {
+            var price = skiPassPriceCalculator.Calculate(skiPassBooking.From, skiPassBooking.To, skiPassBooking.DateOfBirth);
 
             var skiPass = new SkiPass()
             {
-                Name = firstName + " " + lastName,
-                Price = Convert.ToDecimal(price),
-                ValidFrom = from,
-                ValidTo = to
+                Name = skiPassBooking.GetFullName(),
+                Price = price,
+                ValidFrom = skiPassBooking.From,
+                ValidTo = skiPassBooking.To
             };
 
-            var skiPassRepository = new SkiPassRepository();
-            skiPassRepository.CreatePass(skiPass);
+            skiPassRepo.CreatePass(skiPass);
 
-            return skiPass;
+            return Ok(skiPass);
         }
     }
 }
