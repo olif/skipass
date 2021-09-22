@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkiPass.Consumer", "SkiPass.Consumer\SkiPass.Consumer.csproj", "{ED19C144-23E4-4FF6-8A36-9CEB4CBDC070}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkiPass.Provider", "SkiPass.Provider\SkiPass.Provider.csproj", "{CA43DF25-043C-44EE-8D47-A3B74CD484E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkiPass.Api", "SkiPass.Api\SkiPass.Api.csproj", "{38688057-9DF2-435F-B325-6209F53C49F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ED19C144-23E4-4FF6-8A36-9CEB4CBDC070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED19C144-23E4-4FF6-8A36-9CEB4CBDC070}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED19C144-23E4-4FF6-8A36-9CEB4CBDC070}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED19C144-23E4-4FF6-8A36-9CEB4CBDC070}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA43DF25-043C-44EE-8D47-A3B74CD484E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA43DF25-043C-44EE-8D47-A3B74CD484E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA43DF25-043C-44EE-8D47-A3B74CD484E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA43DF25-043C-44EE-8D47-A3B74CD484E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38688057-9DF2-435F-B325-6209F53C49F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38688057-9DF2-435F-B325-6209F53C49F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38688057-9DF2-435F-B325-6209F53C49F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38688057-9DF2-435F-B325-6209F53C49F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
