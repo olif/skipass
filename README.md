@@ -7,7 +7,7 @@ Uträkningen av priset ska ta hänsyn till åkarens ålder och när beställning
 
 ## Uppgift
 
-Den här uppgiften går ut på att refaktorisera koden i Provider-projektet, med störst fokus på SkiPassService-klassen och dess OrderSkiPass-metod.
+Den här uppgiften går ut på att refaktorisera koden i Provider-projektet, med störst fokus på SkiPassController-klassen och dess OrderSkiPass-metod.
 Utgå från principer som SOLID, KISS, DRY och YAGNI, och skriv gärna minst ett enhetstest. Det har även smugit sig in ett par buggar.
 
 Uppgiften bör inte ta längre tid än 2-3 timmar. Har du fler saker du vill ändra efter den tiden är det såklart tillåtet, men du kan också skriva ner dem och diskutera dem med oss när vi går igenom testet.
