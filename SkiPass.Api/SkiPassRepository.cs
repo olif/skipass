@@ -1,6 +1,6 @@
 ﻿namespace SkiPass.Api
 {
-    internal class SkiPassRepository
+    public class SkiPassRepository
     {
         public void CreatePass(SkiPass pass)
         {
@@ -8,7 +8,6 @@
             pass.ID = new Guid();
             context.Passes.Add(pass);
             context.SaveChanges();
-
         }
     }
 }
