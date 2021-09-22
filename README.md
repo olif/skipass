@@ -1,4 +1,4 @@
-# Refaktoriseringstest för CGI Östersund
+# Refaktoriseringstest för CGI Åre/Östersund
 
 ## Uppgift
 
