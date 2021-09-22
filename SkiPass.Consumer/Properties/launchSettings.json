@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SkiPass.Consumer": {
+      "commandName": "Project",
+      "commandLineArgs": "test test 1985-01-01 2021-11-11 2022-01-20"
+    }
+  }
+}
